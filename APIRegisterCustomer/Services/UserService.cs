@@ -2,6 +2,7 @@
 using APIRegisterCustomer.Models;
 using APIRegisterCustomer.Services.IServices;
 using System.Data;
+using System.Xml.Linq;
 
 namespace APIRegisterCustomer.Services
 {
@@ -15,44 +16,60 @@ namespace APIRegisterCustomer.Services
 
         }
 
-        public User Create(User user)
+        public string Create(User user)
         {
+            User userConfirm = this.GetByEmail(user.EmailConfirm);
+            if (userConfirm != null)
+            {
+                return "Email: " + userConfirm.EmailConfirm + "Ja existe";
+            }
              _Context.Users.Add(user);
              _Context.SaveChanges();
 
-            return user;
+            return "Usuario Registrado Com sucesso";
         }
 
-        public void Delete(int id)
+        public string DesativaUsuario(int id)
         {
-           _Context.Remove(id);
-           _Context.SaveChanges();
+            User userReturn = this.GetById(id);
+            if (userReturn != null)
+            {
+                userReturn.UsuarioActive = false;
+                _Context.SaveChanges();
+                return "Usuario desativado";
+            }
 
+            return "Usuario nao Encontrado";
         }
 
         public List<User> GetAll()
         {
-            return _Context.Users.ToList();
+            return _Context.Users.Where(Users => Users.UsuarioActive == true).ToList();
         }
 
         public User GetById(int id)
         {
-            return _Context.Users.Where(Users => Users.Id == id).FirstOrDefault();
+            return _Context.Users.Where(Users => Users.Id == id && Users.UsuarioActive == true).FirstOrDefault();
         }
 
         public List<User> GetByName(string name)
         {
-            return _Context.Users.Where(Users => Users.Name == name).ToList();
+            return _Context.Users.Where(Users => Users.Name == name && Users.UsuarioActive == true).ToList();
+        }
+        public User GetByEmail(string Email)
+        {
+            return _Context.Users.Where(Users => Users.EmailConfirm == Email).FirstOrDefault();
         }
 
-        public User Update(User user)
+        public string Update(User user)
         {
-            return new User
+            User userReturn = _Context.Users.Find(user);
+            if (userReturn != null)
             {
-                Id = user.Id,
-                Name = user.Name,
-
-            };
+                _Context.Users.Update(userReturn);
+                return "User Alterado";
+            }
+            return "User nao existe";
         }
     }
 }

@@ -7,9 +7,10 @@ namespace APIRegisterCustomer.Services.IServices
         List<User> GetAll();
         User GetById(int id);
         List<User> GetByName(string name);
-        User Create(User user);
-        User Update(User user);
-        void Delete(int id);
+        User GetByEmail(string Email);
+        string Create(User user);
+        string Update(User user);
+        string DesativaUsuario(int id);
 
     }
 }
