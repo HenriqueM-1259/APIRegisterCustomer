@@ -1,12 +1,14 @@
 using APIRegisterCustomer.Models;
 using APIRegisterCustomer.Services;
 using APIRegisterCustomer.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIRegisterCustomer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly UserService service;

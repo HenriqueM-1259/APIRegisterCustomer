@@ -2,7 +2,6 @@
 using APIRegisterCustomer.Models;
 using APIRegisterCustomer.Services.IServices;
 using System.Data;
-using System.Xml.Linq;
 
 namespace APIRegisterCustomer.Services
 {
