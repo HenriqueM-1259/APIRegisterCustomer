@@ -377,3 +377,4 @@ appsettings.Production.json
 # Visual Studio Code
 .vscode/
 .csproj/
+/APIRegisterCustomer/.env
