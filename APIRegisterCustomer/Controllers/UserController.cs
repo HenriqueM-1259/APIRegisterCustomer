@@ -1,4 +1,6 @@
 using APIRegisterCustomer.Models;
+using APIRegisterCustomer.Services;
+using APIRegisterCustomer.Services.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIRegisterCustomer.Controllers
@@ -7,22 +9,58 @@ namespace APIRegisterCustomer.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
+        private readonly UserService service;
 
-
-
-        public IEnumerable<User> Get()
+        public UserController(UserService service)
         {
-            List<User> user = new List<User>(){
-                 new User
-                {
-                    AddressId = 1,
-                    Email = "teste"
-                }
-                
-            };
-             return user;
+            this.service = service;
         }
+        [HttpGet]
+        public List<User> Get()
+        {
+             return service.GetAll(); 
+        }
+        [HttpGet("GetById")]
+        public User GetById(int id)
+        {
+            return service.GetById(id);
+        }
+
+        [HttpGet("GetByName")]
+        public List<User> GetByName(string name)
+        {
+            return service.GetByName(name);
+        }
+
+        [HttpPost]
+        public string Create([FromBody] User user)
+        {
+            try
+            {
+                return service.Create(user);
+            }
+            catch (Exception error)
+            {
+
+                return error.Message;
+            }
+            
+        }
+
+        [HttpPut]
+        public string Update([FromBody] User user)
+        {
+            try
+            {
+                
+                return service.Update(user); 
+            }
+            catch (Exception error)
+            {
+
+                return error.Message;
+            }
            
-    
+        }
     }
 }
