@@ -8,6 +8,7 @@ namespace APIRegisterCustomer.Services.IServices
         User GetById(int id);
         List<User> GetByName(string name);
         User GetByEmail(string Email);
+        User GetByEmailAndPassword(string Email,string Password);
         string Create(User user);
         string Update(User user);
         string DesativaUsuario(int id);
