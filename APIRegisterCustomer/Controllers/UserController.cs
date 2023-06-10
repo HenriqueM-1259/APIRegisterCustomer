@@ -1,6 +1,7 @@
 using APIRegisterCustomer.Models;
 using APIRegisterCustomer.Services;
 using APIRegisterCustomer.Services.IServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIRegisterCustomer.Controllers
@@ -15,6 +16,8 @@ namespace APIRegisterCustomer.Controllers
         {
             this.service = service;
         }
+
+        [Authorize]
         [HttpGet]
         public List<User> Get()
         {
@@ -62,5 +65,7 @@ namespace APIRegisterCustomer.Controllers
             }
            
         }
+
+        
     }
 }

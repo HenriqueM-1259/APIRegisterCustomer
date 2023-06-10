@@ -71,5 +71,10 @@ namespace APIRegisterCustomer.Services
             }
             return "User nao existe";
         }
+
+        public User GetByEmailAndPassword(string Email, string Password)
+        {
+            return _Context.Users.Where(Users => Users.EmailConfirm == Email && Users.Password == Password).FirstOrDefault();
+        }
     }
 }
