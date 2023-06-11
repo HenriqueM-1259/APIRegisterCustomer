@@ -74,7 +74,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>();
 builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<Client>();
+builder.Services.AddScoped<ClientService>();
 builder.Services.AddScoped<Address>();
 
 var app = builder.Build();
