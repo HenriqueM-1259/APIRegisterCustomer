@@ -1,4 +1,5 @@
-﻿using APIRegisterCustomer.Services;
+﻿using APIRegisterCustomer.Models;
+using APIRegisterCustomer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,6 +26,19 @@ namespace APIRegisterCustomer.Controllers
             var clientes = service.GetAll(idUser);
 
             return Ok(clientes);
+
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Create(Client client)
+        {
+            string jwtToken = Request.Headers["Authorization"];
+            int idUser = TokenService.ObterUsuarioIdDoToken(jwtToken);
+            client.UserId = idUser;
+            string retornoCliente = service.Create(client);
+
+            return Ok(retornoCliente);
 
         }
     }

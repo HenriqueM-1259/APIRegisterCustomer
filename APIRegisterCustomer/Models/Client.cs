@@ -10,13 +10,13 @@ namespace APIRegisterCustomer.Models
         public string Name { get; set; }     
         public string Email { get; set; }
 
-        public int AddressId { get; set; }
-        public Address Address { get; set; }
+        public int? AddressId { get; set; }
+        public Address? Address { get; set; }
 
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int? UserId { get; set; }
+        public User? User { get; set; }
 
       
     }
